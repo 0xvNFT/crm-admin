@@ -82,11 +82,13 @@ export function PlanListPage() {
               key: 'users',
               header: 'Max Users',
               render: (p) => p.maxUsers.toLocaleString(),
+              hideOnMobile: true,
             },
             {
               key: 'records',
               header: 'Max Records',
               render: (p) => p.maxRecords.toLocaleString(),
+              hideOnMobile: true,
             },
             {
               key: 'active',
@@ -101,6 +103,7 @@ export function PlanListPage() {
                   {p.stripePriceId ?? '—'}
                 </span>
               ),
+              hideOnMobile: true,
             },
             {
               key: 'actions',

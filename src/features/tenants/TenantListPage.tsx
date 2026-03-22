@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Plus, Building2 } from 'lucide-react'
+import { Plus, Building2, PauseCircle, PlayCircle } from 'lucide-react'
 import { useTenants, useSuspendTenant, useReactivateTenant } from '@/api/endpoints/admin'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { SearchInput } from '@/components/shared/SearchInput'
@@ -118,6 +118,7 @@ export function TenantListPage() {
               key: 'plan',
               header: 'Plan',
               render: (t) => t.planName,
+              hideOnMobile: true,
             },
             {
               key: 'status',
@@ -128,16 +129,19 @@ export function TenantListPage() {
               key: 'subscription',
               header: 'Subscription',
               render: (t) => <StatusBadge status={t.subscriptionStatus} />,
+              hideOnMobile: true,
             },
             {
               key: 'region',
               header: 'Region',
               render: (t) => t.dataRegion,
+              hideOnMobile: true,
             },
             {
               key: 'created',
               header: 'Created',
               render: (t) => formatDate(t.createdAt),
+              hideOnMobile: true,
             },
             {
               key: 'actions',
@@ -145,27 +149,57 @@ export function TenantListPage() {
               render: (t) => (
                 <div className="flex justify-end">
                   {t.status === 'active' ? (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setConfirmAction({ type: 'suspend', tenant: t })
-                      }}
-                    >
-                      Suspend
-                    </Button>
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="hidden sm:inline-flex"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setConfirmAction({ type: 'suspend', tenant: t })
+                        }}
+                      >
+                        Suspend
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="sm:hidden"
+                        title="Suspend"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setConfirmAction({ type: 'suspend', tenant: t })
+                        }}
+                      >
+                        <PauseCircle className="h-4 w-4 text-amber-500" />
+                      </Button>
+                    </>
                   ) : (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setConfirmAction({ type: 'reactivate', tenant: t })
-                      }}
-                    >
-                      Reactivate
-                    </Button>
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="hidden sm:inline-flex"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setConfirmAction({ type: 'reactivate', tenant: t })
+                        }}
+                      >
+                        Reactivate
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="sm:hidden"
+                        title="Reactivate"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setConfirmAction({ type: 'reactivate', tenant: t })
+                        }}
+                      >
+                        <PlayCircle className="h-4 w-4 text-green-500" />
+                      </Button>
+                    </>
                   )}
                 </div>
               ),
