@@ -79,3 +79,21 @@ export interface UpdatePlanRequest {
   isActive?: boolean
   stripePriceId?: string | null
 }
+
+// Profile
+export interface UpdateProfileRequest {
+  firstName: string
+  lastName: string
+}
+
+export interface UpdateProfileResponse {
+  userId: string
+  firstName: string
+  lastName: string
+  fullName: string
+}
+
+export interface ChangePasswordRequest {
+  currentPassword: string
+  newPassword: string
+}

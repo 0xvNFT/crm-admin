@@ -9,6 +9,7 @@ const TenantListPage = lazy(() => import('@/features/tenants/TenantListPage').th
 const TenantDetailPage = lazy(() => import('@/features/tenants/TenantDetailPage').then((m) => ({ default: m.TenantDetailPage })))
 const PlanListPage = lazy(() => import('@/features/plans/PlanListPage').then((m) => ({ default: m.PlanListPage })))
 const PlanDetailPage = lazy(() => import('@/features/plans/PlanDetailPage').then((m) => ({ default: m.PlanDetailPage })))
+const ProfilePage = lazy(() => import('@/features/profile/ProfilePage').then((m) => ({ default: m.ProfilePage })))
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth()
@@ -35,6 +36,7 @@ export function AppRouter() {
             <Route path="/tenants/:id" element={<TenantDetailPage />} />
             <Route path="/plans" element={<PlanListPage />} />
             <Route path="/plans/:id" element={<PlanDetailPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
           <Route path="*" element={<Navigate to="/tenants" replace />} />
         </Routes>
