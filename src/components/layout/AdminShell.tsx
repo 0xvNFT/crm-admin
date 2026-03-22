@@ -37,11 +37,12 @@ export function AdminShell() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Sidebar */}
+      {/* Sidebar wrapper — relative so toggle button can overflow */}
+      <div className="relative flex h-full shrink-0">
       <motion.aside
         animate={{ width: collapsed ? SIDEBAR_CLOSED_WIDTH : SIDEBAR_OPEN_WIDTH }}
         transition={{ duration: 0.25, ease: 'easeInOut' }}
-        className="relative flex h-full shrink-0 flex-col border-r border-sidebar-border bg-sidebar overflow-hidden"
+        className="flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar overflow-hidden"
       >
         {/* Logo / Brand */}
         <div className="flex h-14 items-center border-b border-sidebar-border px-4">
@@ -128,7 +129,9 @@ export function AdminShell() {
           </div>
         </div>
 
-        {/* Collapse toggle */}
+      </motion.aside>
+
+        {/* Collapse toggle — outside aside so it's not clipped */}
         <button
           onClick={() => setCollapsed((c) => !c)}
           className="absolute -right-3 top-14 z-10 flex h-6 w-6 items-center justify-center rounded-full border border-sidebar-border bg-background text-muted-foreground shadow-sm transition-colors hover:text-foreground"
@@ -137,7 +140,7 @@ export function AdminShell() {
             <ChevronLeft className="h-3 w-3" />
           </motion.div>
         </button>
-      </motion.aside>
+      </div>
 
       {/* Main content */}
       <main className="flex-1 overflow-auto">
